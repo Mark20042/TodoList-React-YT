@@ -4,9 +4,7 @@ A small React todo app built with Vite. It lets you add tasks, mark them complet
 
 ## Preview
 
-<p align="center">
-  <img src="./docs/thumbnailtodolist.png" width="500">
-</p>g
+<img src="./docs/thumbnailtodolist.png" height="300" alt="Todo List app preview">
 
 ## Features
 
