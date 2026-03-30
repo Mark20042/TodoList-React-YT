@@ -1,6 +1,6 @@
 # Todo List React App
 
-A small React todo app built with Vite. It lets you add tasks, mark them complete, delete them, and keeps your list saved in local storage so it stays available after a refresh.
+A React todo app built with Vite and Supabase. It lets you add tasks, mark them complete, and delete them with real-time sync to a Supabase backend database.
 
 ## Preview
 
@@ -13,7 +13,8 @@ A small React todo app built with Vite. It lets you add tasks, mark them complet
 - Add new todos from a simple form
 - Mark todos as completed with a custom checkbox UI
 - Delete tasks you no longer need
-- Persist todos in browser local storage
+- Real-time sync with Supabase backend database
+- Persistent data across browser sessions and devices
 - Lightweight React + Vite setup for fast development
 
 ## Tech Stack
@@ -21,7 +22,7 @@ A small React todo app built with Vite. It lets you add tasks, mark them complet
 - React 19
 - Vite 8
 - ESLint
-- Browser localStorage for persistence
+- Supabase for backend and database
 
 ## Getting Started
 
@@ -29,6 +30,31 @@ A small React todo app built with Vite. It lets you add tasks, mark them complet
 
 - Node.js 18 or newer
 - npm
+- A Supabase account and project
+
+### Environment Setup
+
+Create a `.env.local` file in the project root with your Supabase credentials:
+
+```
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_PUBLISHABLE_DEFAULT_KEY=your_supabase_public_key
+```
+
+You can find these values in your Supabase project settings under "API".
+
+### Database Setup
+
+Create a `Todo` table in your Supabase database with the following schema:
+
+```sql
+create table Todo (
+  id bigint primary key generated always as identity,
+  title text not null,
+  completed boolean default false,
+  created_at timestamp default now()
+);
+```
 
 ### Install
 
@@ -70,7 +96,14 @@ src/
 
 ## Behavior
 
-The app stores todos under the `ITEMS` key in local storage. Each todo includes an id, title, and completion state.
+The app syncs all todos with a Supabase database. Each todo includes:
+
+- `id` - Auto-generated unique identifier
+- `title` - The todo text
+- `completed` - Boolean flag for completion status
+- `created_at` - Timestamp of creation
+
+All changes (add, update, delete) are immediately persisted to the Supabase backend.
 
 ## License
 
